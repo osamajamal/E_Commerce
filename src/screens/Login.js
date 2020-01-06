@@ -9,8 +9,23 @@ import {
   TouchableOpacity
 } from "react-native";
 import Logo from "../assets/logo.png";
+import * as f from "firebase";
 
 export default class Login extends Component {
+  state = {
+    Email: "",
+    Passsword: ""
+  };
+
+  Login = () => {
+    f.auth()
+      .signInWithEmailAndPassword(this.state.Email, this.state.Passsword)
+      .then(() => {
+        alert("You are logged in");
+      })
+      .catch(e => alert(e));
+  };
+
   render() {
     return (
       <SafeAreaView
@@ -35,8 +50,11 @@ export default class Login extends Component {
               borderColor: "gainsboro",
               fontSize: 22
             }}
+            autoCapitalize="none"
             placeholderTextColor="gray"
-            placeholder="Username"
+            placeholder="Email"
+            onChangeText={val => this.setState({ Email: val })}
+            value={this.state.Email}
           />
           <TextInput
             style={{
@@ -52,6 +70,8 @@ export default class Login extends Component {
             placeholderTextColor="gray"
             placeholder="Password"
             secureTextEntry={true}
+            onChangeText={val => this.setState({ Passsword: val })}
+            value={this.state.Passsword}
           />
           <TouchableOpacity
             style={{
@@ -63,6 +83,7 @@ export default class Login extends Component {
               alignItems: "center",
               justifyContent: "center"
             }}
+            onPress={() => this.Login()}
           >
             <Text style={{ color: "white", fontWeight: "bold" }}>Login</Text>
           </TouchableOpacity>
