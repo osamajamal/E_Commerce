@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Text, View, Image } from "react-native";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default class Splashscreen extends Component {
   componentDidMount() {
-    f.auth().signOut();
-
     f.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("u are logged in");
