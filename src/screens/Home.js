@@ -24,7 +24,16 @@ export default class Home extends Component {
       .ref("products")
       .once("value")
       .then(data => {
-        console.log(data);
+        data.forEach(item => {
+          this.setState({
+            data: [...this.state.data, { ...item.val(), id: item.key }]
+          });
+        });
+      })
+      .then(() => {
+        this.setState({
+          isLoading: false
+        });
       });
   }
 
@@ -36,82 +45,98 @@ export default class Home extends Component {
           flex: 1
         }}
       >
-        <View
-          style={{
-            width: "100%",
-            height: 50,
-            flexDirection: "row"
-          }}
-        >
+        {this.state.isLoading ? (
           <View
             style={{
-              width: "20%",
-              height: 50,
+              width: "100%",
+              flex: 1,
               alignItems: "center",
               justifyContent: "center"
             }}
           >
-            <Icon name="menu" />
+            <Text>Loading</Text>
           </View>
-          <View
-            style={{
-              width: "80%",
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Image
-              source={Logo}
-              style={{ width: 150, height: 40, marginRight: 70 }}
-            />
-          </View>
-        </View>
-
-        {/* Body */}
-
-        <ScrollView style={{ width: "100%", flex: 1 }}>
-          <View style={{ width: "100%", alignItems: "center" }}>
-            <View style={{ width: "90%", marginTop: 20 }}>
-              <Image
-                source={{
-                  uri:
-                    "https://cdn.pixabay.com/photo/2016/11/29/09/41/bag-1868758_960_720.jpg"
+        ) : (
+          <View style={{ width: "100%", flex: 1 }}>
+            <View
+              style={{
+                width: "100%",
+                height: 50,
+                flexDirection: "row"
+              }}
+            >
+              <View
+                style={{
+                  width: "20%",
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center"
                 }}
-                style={{ width: "100%", height: 300, borderRadius: 10 }}
-              />
-              <View style={{ width: "100%", marginTop: 10 }}>
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  Leather Bag
-                </Text>
-                <Text style={{ marginTop: 10 }}>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed
-                </Text>
+              >
+                <Icon name="menu" />
               </View>
-              <View style={{ marginTop: 10 }}>
-                <TouchableOpacity
-                  style={{
-                    width: "100%",
-                    height: 50,
-                    backgroundColor: "orange",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 10
-                  }}
-                >
-                  <Text
-                    style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
-                  >
-                    Buy Now
-                  </Text>
-                </TouchableOpacity>
+              <View
+                style={{
+                  width: "80%",
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  source={Logo}
+                  style={{ width: 150, height: 40, marginRight: 70 }}
+                />
               </View>
             </View>
+
+            {/* Body */}
+
+            <ScrollView style={{ width: "100%", flex: 1 }}>
+              <View style={{ width: "100%", alignItems: "center" }}>
+                {this.state.data.map(item => (
+                  <View key={item.id} style={{ width: "90%", marginTop: 20 }}>
+                    {console.log(item.Image)}
+                    <Image
+                      source={{
+                        uri: item.Image
+                      }}
+                      style={{ width: "100%", height: 300, borderRadius: 10 }}
+                    />
+                    <View style={{ width: "100%", marginTop: 10 }}>
+                      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                        {item.Name}
+                      </Text>
+                      <Text style={{ marginTop: 10 }}>{item.Description}</Text>
+                    </View>
+                    <View style={{ marginTop: 10 }}>
+                      <TouchableOpacity
+                        style={{
+                          width: "100%",
+                          height: 50,
+                          backgroundColor: "orange",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 10
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                            fontSize: 18,
+                            fontWeight: "bold"
+                          }}
+                        >
+                          Buy Now
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
           </View>
-        </ScrollView>
+        )}
       </SafeAreaView>
     );
   }
