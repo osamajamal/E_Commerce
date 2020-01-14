@@ -97,12 +97,21 @@ export default class Home extends Component {
                 {this.state.data.map(item => (
                   <View key={item.id} style={{ width: "90%", marginTop: 20 }}>
                     {console.log(item.Image)}
-                    <Image
-                      source={{
-                        uri: item.Image
-                      }}
-                      style={{ width: "100%", height: 300, borderRadius: 10 }}
-                    />
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.navigate("Details", {
+                          data: item
+                        })
+                      }
+                    >
+                      <Image
+                        source={{
+                          uri: item.Image
+                        }}
+                        style={{ width: "100%", height: 300, borderRadius: 10 }}
+                      />
+                    </TouchableOpacity>
+
                     <View style={{ width: "100%", marginTop: 10 }}>
                       <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                         {item.Name}
