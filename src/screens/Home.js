@@ -12,6 +12,7 @@ import {
 import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
+import AnimatedEllipsis from "react-native-animated-ellipsis";
 
 export default class Home extends Component {
   state = {
@@ -46,15 +47,36 @@ export default class Home extends Component {
         }}
       >
         {this.state.isLoading ? (
+          // <View
+          //   style={{
+          //     width: "100%",
+          //     flex: 1,
+          //     alignItems: "center",
+          //     justifyContent: "center"
+          //   }}
+          // >
+          //   <Text>Loading</Text>
+          // </View>
           <View
             style={{
               width: "100%",
               flex: 1,
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
+              flexDirection: "row"
             }}
           >
-            <Text>Loading</Text>
+            <AnimatedEllipsis
+              numberOfDots={3}
+              minOpacity={0.4}
+              animationDelay={200}
+              style={{
+                color: "orange",
+                fontSize: 80,
+                width: 30,
+                letterSpacing: -15
+              }}
+            />
           </View>
         ) : (
           <View style={{ width: "100%", flex: 1 }}>

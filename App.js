@@ -8,6 +8,9 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import Home from "./src/screens/Home";
 import Details from "./src/screens/Details";
+import Admin from "./src/screens/Admin";
+import Sample from "./src/screens/ViewAlignment";
+import Tabs from "./src/screens/Tabs";
 
 const stack = createStackNavigator(
   {
@@ -25,11 +28,14 @@ const stack = createStackNavigator(
     },
     Home: {
       screen: Home
+    },
+    Admin: {
+      screen: Admin
     }
   },
   {
     headerMode: "none",
-    initialRouteName: "Home"
+    initialRouteName: "Admin"
   }
 );
 
@@ -37,6 +43,6 @@ const MainNav = createAppContainer(stack);
 
 export default class App extends Component {
   render() {
-    return <MainNav />;
+    return <Tabs />;
   }
 }

@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Text, View, SafeAreaView, StatusBar, Image } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 
@@ -48,27 +56,52 @@ export default class Details extends Component {
             />
           </View>
         </View>
-        <View style={{ width: "100%", flex: 1, alignItems: "center" }}>
-          <Image
-            source={{
-              uri: this.props.navigation.getParam("data").Image
-            }}
-            style={{ width: "100%", height: 300 }}
-          />
-          <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
-            <View style={{ width: "90%" }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                {this.props.navigation.getParam("data").Name}
-              </Text>
-              <Text style={{ marginTop: 10 }}>
-                {this.props.navigation.getParam("data").Description}
-              </Text>
-              <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
-                Rs. {this.props.navigation.getParam("data").Price}
-              </Text>
+        <ScrollView style={{ width: "100%", flex: 1 }}>
+          <View style={{ width: "100%", flex: 1, alignItems: "center" }}>
+            <Image
+              source={{
+                uri: this.props.navigation.getParam("data").Image
+              }}
+              style={{ width: "100%", height: 300 }}
+            />
+            <View
+              style={{ width: "100%", alignItems: "center", marginTop: 10 }}
+            >
+              <View style={{ width: "90%" }}>
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  {this.props.navigation.getParam("data").Name}
+                </Text>
+                <Text style={{ marginTop: 10 }}>
+                  {this.props.navigation.getParam("data").Description}
+                </Text>
+                <Text
+                  style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}
+                >
+                  Rs. {this.props.navigation.getParam("data").Price}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: 50,
+            backgroundColor: "orange",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 18,
+              fontWeight: "bold"
+            }}
+          >
+            Buy Now
+          </Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
